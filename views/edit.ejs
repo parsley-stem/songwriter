@@ -4,9 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><%=song.name%></title>
 </head>
 <body>
-    Edit form here
+    <div class="container">
+    <h3>editing <%=song.title%></h3>
+    <form action="/<%=song._id%>?_method=PUT" method="POST">
+    <textarea name="notation" rows="30" cols="100"><%=song.notation%></textarea> <br>
+    Artist: <input type="text" name="artist" value="<%=song.artist%>"><br/>
+    Song Title: <input type="text" name="title" value="<%=song.title%>"> <br/>
+    Tab Author: <input type="text" name="author" value="<%=song.author%>"> <br/>
+    Image URL: <input type="text" name="img" value="<%=song.img%>"> <br/>
+    <input type="submit" value="Update song">
+</div>
+</form>
 </body>
 </html>

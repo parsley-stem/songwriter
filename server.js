@@ -6,11 +6,23 @@ const methodOverride = require('method-override');
 const Songs = require('./models/tabs');
 require('dotenv').config();
 
+// middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(methodOverride('_method'));
+app.use(express.static('public'));
+
 // connect to mongo
 const mongoURI = 'mongodb+srv://ykhieml:oSjTfgkCvJSTULC1@cluster0.xp68xnd.mongodb.net/?retryWrites=true&w=majority';
 mongoose.connect(mongoURI, () => {
-    console.log('Connected to mongod')
+    console.log('Connected to mongoD')
 });
+
+// error and success
+const db = mongoose.connection;
+db.on('error', (err) => console.log(`${err.message} MongoDB is not running`));
+db.on('connected', () => console.log('Mongo connected'));
+db.on('disconnected', () => console.log('Mongo disconnected'));
 
 // I
 app.get('/', (req, res) => {
@@ -28,6 +40,17 @@ app.get('/new', (req, res) => {
 
 // D
 // U
+app.put('/:id', (req,res) => {
+    Songs.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true},
+        (err, updatedSong) => {
+            res.redirect(`/${req.params.id}`)
+        }
+    )
+})
+
 // C
 // E
 app.get('/:id/edit', (req, res) => {

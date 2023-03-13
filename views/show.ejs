@@ -9,7 +9,9 @@
 <body>
     <h1><%=song.title%></h1>
     <h3>music and lyrics by <%=song.artist%>.</h3>
-    <p><%=song.notation%></p>
+    <p>
+        <textarea rows="30" cols="100"><%=song.notation%></textarea>
+    </p>
     <h4> Tabbed by <%=song.author%></h4>
 <footer>
     <a href="/">return to all songs</a>
