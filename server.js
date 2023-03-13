@@ -14,7 +14,11 @@ mongoose.connect(mongoURI, () => {
 
 // I
 app.get('/', (req, res) => {
-    res.render('index.ejs')
+    Songs.find({}, (err, allSongs) => {
+        res.render('index.ejs', {
+            songs: allSongs
+        })
+    })
 });
 
 // N
@@ -33,33 +37,33 @@ app.get('/edit', (req, res) => {
 // S
 
 // Database seeding
-const sampleSongs = [
-    {
-      title: 'Big Bottom',
-      artist: 'Spinal Tap',
-      img: 'https://images.genius.com/9b6f3ca4dc0ff6c3b35fb22bdeed41a3.442x500x1.jpg',
-      notation: 1234,
-      comment: 'A cool one'
-    },
-    {
-      title: 'Back to Basom',
-      artist: 'Ween',
-      img: 'https://i.discogs.com/U-nFSOQAw0c89WCDLHRMz4Ri-9iN1hU9qgK3GkUXfKE/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM3MDIy/OC0xNDA4NzEzMzQ2/LTg0ODEuanBlZw.jpeg',
-      notation: 5678,
-      comment: 'Acoustic guitar favorite'
-    }
-  ];
+// const sampleSongs = [
+//     {
+//       artist: 'Spinal Tap',
+//       title: 'Big Bottom',
+//       author: 'Sam',
+//       img: 'https://images.genius.com/9b6f3ca4dc0ff6c3b35fb22bdeed41a3.442x500x1.jpg',
+//       notation: 1234,
+//       comment: 'A cool one'
+//     },
+//     {
+//       artist: 'Ween',
+//       title: 'Back to Basom',
+//       author: 'Sam',
+//       img: 'https://i.discogs.com/U-nFSOQAw0c89WCDLHRMz4Ri-9iN1hU9qgK3GkUXfKE/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM3MDIy/OC0xNDA4NzEzMzQ2/LTg0ODEuanBlZw.jpeg',
+//       notation: 5678,
+//       comment: 'Acoustic guitar favorite'
+//     }
+//   ];
 
 // Using the Songs schema to add this information to the database
-Songs.insertMany(sampleSongs, (err, inserted) => {
-    if (err) {
-        console.log(err)
-    } else {
-        console.log('Sample songs seeded successfully')
-    }
-});
-
-
+// Songs.insertMany(sampleSongs, (err, inserted) => {
+//     if (err) {
+//         console.log(err)
+//     } else {
+//         console.log('Sample songs seeded successfully')
+//     }
+// });
 
 // creating port
 const port = 3000;

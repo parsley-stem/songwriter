@@ -8,5 +8,14 @@
 </head>
 <body>
     <h1>Songwriter</h1>
+    <% for (let i = 0; i < songs.length; i ++) { %>
+        <div id="song">
+            <img src="<%=songs[i].img%>" width="100px">
+            <ul>
+                <li><%=songs[i].artist%> -  <%=songs[i].title%></li>
+                <li><%=songs[i].author%></li>
+            </ul>
+        </div>
+        <% } %>
 </body>
 </html>

@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const tabSchema = new mongoose.Schema({
+    artist: String,
     title: {
         type: String,
         required: true
     },
-    artist: String,
+    author: String,
     img: String,
     notation: {
         type: Number,
