@@ -12,8 +12,10 @@
         <div id="song">
             <img src="<%=songs[i].img%>" width="100px">
             <ul>
+                <a href='/<%=songs[i]._id%>'>
                 <li><%=songs[i].artist%> -  <%=songs[i].title%></li>
-                <li><%=songs[i].author%></li>
+            </a>
+                <li>tabbed by <%=songs[i].author%></li>
             </ul>
         </div>
         <% } %>

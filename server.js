@@ -35,6 +35,17 @@ app.get('/edit', (req, res) => {
 });
 
 // S
+app.get('/:id', (req, res) => {
+    Songs.findById(req.params.id, (err, foundSong) => {
+        if (err) {
+            console.log(err)
+            res.redirect('/')
+        } else {
+            res.render('show.ejs',
+            { song: foundSong })
+        }
+    })
+});
 
 // Database seeding
 // const sampleSongs = [
