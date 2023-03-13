@@ -30,8 +30,17 @@ app.get('/new', (req, res) => {
 // U
 // C
 // E
-app.get('/edit', (req, res) => {
-    res.render('edit.ejs')
+app.get('/:id/edit', (req, res) => {
+    Songs.findById(req.params.id, (err, foundSong) => {
+        if (err) {
+            console.log(err)
+            res.redirect(`/${foundSong._id}`)
+        } else {
+            res.render('edit.ejs', {
+                song: foundSong
+            })
+        }
+    })
 });
 
 // S
