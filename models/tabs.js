@@ -8,7 +8,7 @@ const tabSchema = new mongoose.Schema({
     author: String,
     img: String,
     notation: {
-        type: Number,
+        type: String,
         required: true
     },
     comment: String,

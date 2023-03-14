@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<body>
+  <div class="container">
+    <h3>new</h3>
+    <form action="/?_method=PUT" method="POST">
+      <textarea id="notepad" name="notation" rows="30" cols="100"><%-include('../public/sheet.ejs')%></textarea><br>
+      Artist: <input type="text" name="artist" <br/>
+      Song Title: <input type="text" name="title" <br/>
+      Tab Author: <input type="text" name="author" <br>/
+      Image URL: <input type="text" name="img" <br/>
+      <input type="submit" value="Update song">
+    </form>
+    <button onclick="addSheet()">add tab block</button>
+    <button onclick="clearSheet()">clear notation</button>
+  </div>
+  <%-include('../public/scripts/editor.ejs')%>
+</body>
+</html>
