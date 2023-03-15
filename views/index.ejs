@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Songwriter</title>
-</head>
-<body>
-    <h1>Songwriter</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <title>songwriter</title>
+  </head>
+  <body>
+    <h1>songwriter - Chords, Lyrics, Notation, Tabber</h1>
     <% for (let i = 0; i < songs.length; i ++) { %>
-        <div id="song">
-            <img src="<%=songs[i].img%>" width="100px">
-            <ul>
-                <a href='/<%=songs[i]._id%>'>
-                <li><%=songs[i].artist%> -  <%=songs[i].title%></li>
-            </a>
-                <li>tabbed by <%=songs[i].author%></li>
-            </ul>
-        </div>
-        <% } %>
-        <a href="/new">contribute my own tablature</a>
-</body>
+    <div id="song">
+      <img src="<%=songs[i].img%>" width="100px" />
+      <ul>
+        <a href="/<%=songs[i]._id%>">
+          <li><%=songs[i].artist%> - <%=songs[i].title%></li>
+        </a>
+        <li>tabbed by <%=songs[i].author%></li>
+      </ul>
+    </div>
+    <% } %>
+    <a href="/new">contribute my own tablature</a>
+  </body>
 </html>

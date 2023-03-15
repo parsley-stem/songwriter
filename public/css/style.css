@@ -1,0 +1,20 @@
+html {
+    height: 100%;
+    background-image: linear-gradient(to top, #cae0ee, #f9eeda);
+}
+
+textarea {
+    height: 100%;
+    background-image: linear-gradient(to bottom, #EEF2FF, #f7f4f3);
+}
+
+h1 {
+    color: #0084c1;
+    font-family: Tahoma, sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -2px;
+    padding-bottom: 10px;;
+    border-bottom: 1px solid #43404075;
+    margin-top: 0
+}

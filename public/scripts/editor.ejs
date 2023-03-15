@@ -1,109 +1,170 @@
 <script>
-    // adds a line of sheet when called through the "add tab block button"
-    function addSheet() {
-      // sheet.ejs holds a notation template for the user to write over
-      const sheet = `<%-include('../public/sheet.ejs')%>`
-      const lastBracket = notepad.value.lastIndexOf(']')
-      insertionPoint = lastBracket + 4
-      console.log(lastBracket + 3)
-      // set the notation equal to its beginning up until the insertion point plus the sheet
-      notepad.value = notepad.value.slice(0, insertionPoint)  + sheet
+  // adding a listener for keystrokes on the form field. "keypress" works only for printable characters
+  notepad.addEventListener("keypress", function (event) {
+    // update the position of the user's cursor with every keystroke
+    let cursorPos = notepad.selectionStart;
+    console.log(`cursor index: ${cursorPos}`);
+    // get the value of the character to the right of the cursor
+    let nextChar = notepad.value[cursorPos];
+    console.log(`right character: ${nextChar}`);
+    // get the value of the character to the left of the cursor
+    let prevChar = notepad.value[cursorPos - 1];
+    console.log(`left character: ${prevChar}`);
+    // get the position of the leftmost opening bracket "[" from the cursor
+    let leftmostOpening = 1;
+    // start at the index of the cursor, then count backwards
+    for (let i = cursorPos; i >= 0; i--) {
+      // if a bracket is found, stop and set that equal to leftmostOpening
+      if (notepad.value[i] === "[") {
+        leftmostOpening = i;
+        break;
+      }
+    }
+    console.log(`index of leftmost opening bracket: ${leftmostOpening}`);
+    // get the position of the next closing bracket "]" from the cursor
+    let nextClosing = notepad.value.indexOf("]", cursorPos);
+    console.log(`index of next closing bracket: ${nextClosing}`);
+    // get the position of the next opening bracket "[" from the cursor
+    let nextOpening = notepad.value.indexOf("[", cursorPos);
+    console.log(`index of next opening bracket: ${nextOpening}`);
+    // get the last closing bracket
+    let lastClosing = notepad.value.lastIndexOf("]");
+    // get the position of the last closing bracket
+    let leftmostClosing = 1;
+    // start at the index of the cursor, then count backwards
+    for (let i = cursorPos; i >= 0; i--) {
+      // if a bracket is found, stop and set that equal to leftmostClosing
+      if (notepad.value[i] === "]") {
+        leftmostClosing = i;
+        break;
+      }
     }
 
-    // listening for any key presses in the form field
-    notepad.addEventListener('keydown', (event) => {
-        if (event.key !== '=' && 
-        event.key !== 'Backspace' && 
-        event.key !== 'Tab' && 
-        event.key !== 'CapsLock' && 
-        event.key !== 'Shift' && 
-        event.key !== 'Meta' && 
-        event.key !== 'Enter' && 
-        event.key !== 'Control' && 
-        event.key !== 'Alt' && 
-        event.key !== 'ArrowLeft' && 
-        event.key !== 'ArrowRight' && 
-        event.key !== 'ArrowUp' && 
-        event.key !== 'ArrowDown') {
-            // assigning a variable to the text within the form field
-            const currentTab = notepad.value
-            // getting the position of the cursor. if it is after the 3rd character in the entirety of the form, cursorPos would be equal to 3
-            const cursorPos = notepad.selectionStart
-            // find the last bracket
-            const lastBracket = currentTab.lastIndexOf(']');
-            // find the next bracket from the cursor
-            const nextBracket = currentTab.indexOf(']', cursorPos)
-            console.log(cursorPos)
-            console.log(lastBracket)
-            console.log(`current plus 4 ${currentTab[cursorPos + 4]}`)
-            console.log(`current plus 5 ${currentTab[cursorPos + 5]}`)
-            console.log(`current plus 6 ${currentTab[cursorPos + 6]}`)
-            // check that the cursor is at a bracket but not the final one
-            if (cursorPos === nextBracket &&cursorPos !== nextBracket) {
-                event.preventDefault()
-                return
-            }
-            // prevent the user from expanding the template
-            // if the cursor is at a bracket but there are more ahead, skip to the next string
-            if (cursorPos === nextBracket && currentTab[cursorPos + 5] !== ']' && cursorPos != lastBracket) {
-                console.log('cursor hopped a string')
-                notepad.setSelectionRange(cursorPos + 5, cursorPos + 5)
-                event.preventDefault()
-                return
-            } else {
-                if (cursorPos === nextBracket && currentTab[cursorPos + 5] === ']') {
-                    console.log('cursor hopped onto the next block')
-                    notepad.setSelectionRange(cursorPos + 6, cursorPos + 6)
-                    event.preventDefault()
-                    return
-                } else
-                if (cursorPos === lastBracket) {
-                    console.log('cursor hopped off the last block')
-                    notepad.setSelectionRange(cursorPos + 2, cursorPos + 2)
-                    event.preventDefault()
-                    return
-                }
-            }
-            // replace the character at the cursor position with the new key pressed
-            notepad.value = currentTab.slice(0, cursorPos) + event.key + currentTab.slice(cursorPos + 1)
-            // setting the new cursor position. without this, every key press would send the cursor to the end of the form
-            notepad.setSelectionRange(cursorPos + 1, cursorPos + 1)
-            event.preventDefault()
+    // set a boolean that is true if the cursor is within an opening and closing bracket
+    let cursorWithin = true;
+    if (leftmostOpening < nextClosing && leftmostClosing < leftmostOpening) {
+      cursorWithin = true;
+    } else {
+      cursorWithin = false;
+    }
+    console.log(`cursor is on a line: ${cursorWithin}`);
+
+    console.log(`last closer is at position ${leftmostClosing}
+    next closer is at position ${nextClosing}
+    distance between next and last closing brackets is ${
+      nextClosing - leftmostClosing
+    }
+    `);
+    if (cursorWithin === true) {
+      // if the next character is not a closing bracket
+      if (nextChar !== "]") {
+        // instead of typing, set the form field equal to index 0 up to the cursor + the key pressed + the rest of the form field. this way, the template is overwritten instead of being pushed to the right
+        console.log("hopping 1");
+        notepad.value =
+          notepad.value.slice(0, cursorPos) +
+          event.key +
+          notepad.value.slice(cursorPos + 1);
+        // move the cursor to the right
+        notepad.setSelectionRange(cursorPos + 1, cursorPos + 1);
+        // prevent keys from being typed into the field
+        event.preventDefault();
+      }
+    }
+
+    // if the user has reached the end of a line the cursor hops to the next
+    if (nextChar === "]") {
+      notepad.setSelectionRange(cursorPos + 5, cursorPos + 5);
+
+      event.preventDefault();
+    }
+  });
+
+  // listening for keypresses that don't print with "keydown"
+  notepad.addEventListener("keydown", function (event) {
+    // define variables for each "keydown"
+    let cursorPos = notepad.selectionStart;
+    let nextChar = notepad.value[cursorPos];
+    let prevChar = notepad.value[cursorPos - 1];
+    let leftmostOpening = 1;
+    for (let i = cursorPos; i >= 0; i--) {
+      if (notepad.value[i] === "[") {
+        leftmostOpening = i;
+        break;
+      }
+    }
+    let nextClosing = notepad.value.indexOf("]", cursorPos);
+    let nextOpening = notepad.value.indexOf("[", cursorPos);
+    let lastClosing = notepad.value.lastIndexOf("]");
+    let leftmostClosing = 1;
+    for (let i = cursorPos; i >= 0; i--) {
+      if (notepad.value[i] === "]") {
+        leftmostClosing = i;
+        break;
+      }
+    }
+    let cursorWithin = true;
+    if (leftmostOpening < nextClosing && leftmostClosing < leftmostOpening) {
+      cursorWithin = true;
+    } else {
+      cursorWithin = false;
+    }
+    // handle backspaces within the template
+    if (event.key === "Backspace" || event.key === "Delete") {
+      if (
+        cursorWithin === true &&
+        cursorPos !== leftmostOpening + 1 &&
+        cursorPos !== nextClosing
+      ) {
+        // replace previous character with an "="
+        notepad.value =
+          notepad.value.slice(0, cursorPos - 1) +
+          "=" +
+          notepad.value.slice(cursorPos);
+        // move the cursor back one position
+        notepad.setSelectionRange(cursorPos - 1, cursorPos - 1);
+        event.preventDefault();
+      } else {
+        if (cursorPos === leftmostOpening + 1) {
+          // hop to the previous line
+          notepad.setSelectionRange(cursorPos - 5, cursorPos - 5);
+          event.preventDefault();
+        } else {
+          if (cursorWithin === false && cursorPos === nextClosing) {
+            notepad.setSelectionRange(cursorPos - 1, cursorPos - 1);
+            event.preventDefault();
+          }
         }
-    })
-    // adding a listener that replaces notation lines deleted by the user
-    notepad.addEventListener('keydown', (event) => {
-        const currentTab = notepad.value
-        const cursorPos = notepad.selectionStart
-        const notepadBefore = notepad.value.length
-        let replaceThis = currentTab[cursorPos - 2]
-        console.log(replaceThis)
-        if (event.key == 'Backspace' || event.key == 'Delete') {
-            if (currentTab[cursorPos - 1] === '=') {
-                console.log('= deleted but replaced')
-                notepad.value = notepad.value.slice(0, cursorPos - 1)  + '=' + notepad.value.slice(cursorPos)
-                notepad.setSelectionRange(cursorPos - 1, cursorPos - 1)
-                replaceThis = currentTab[cursorPos - 2]
-                console.log(replaceThis)
-                event.preventDefault()
-            } else
-            if (currentTab[cursorPos - 1] === ']') {
-                console.log('] deleted but replaced')
-                notepad.value = notepad.value.slice(0, cursorPos - 1)  + ']' + notepad.value.slice(cursorPos)
-                notepad.setSelectionRange(cursorPos - 1, cursorPos - 1)
-                replaceThis = currentTab[cursorPos - 2]
-                event.preventDefault()
-            }
-            setTimeout(() => {
-                console.log(`notepad length before deletion: ${notepadBefore}`)
-                console.log(`notepad length after deletion: ${notepad.value.length}`)}, 10)
-        }
-        if (notepadBefore < notepad.value.length) {
-            console.log(replaceThis)
-            notepad.value = notepad.value.slice(0, cursorPos - 1)  + replaceThis + notepad.value.slice(cursorPos)
-        }
-    })
-    function clearSheet() {
-        notepad.value = ''
-    };
-  </script>
+      }
+    }
+    // let the user skip lines if they press enter or tab
+    if (
+      (cursorWithin === true && event.key === "Enter") ||
+      event.key === "Tab"
+    ) {
+      // set a variable for the index of the next line
+      let nextLine = notepad.value.indexOf("\n", cursorPos);
+      // check if the next line is a new line
+      if (nextLine === -1) {
+        nextLine = notepad.value.length;
+      }
+      // hop down and set the cursor below its previous position
+      notepad.setSelectionRange(
+        nextLine + cursorPos - leftmostOpening + 3,
+        nextLine + cursorPos - leftmostOpening + 3
+      );
+      event.preventDefault();
+    }
+  });
+
+  // adds a line of sheet when called through the "add tab block button"
+  function addSheet() {
+    // sheet.ejs holds a notation template for the user to write over
+    const sheet = `<%-include('../scripts/sheet.ejs')%>`;
+    // set the notation equal to its beginning up until the insertion point plus the sheet
+    notepad.value += "\n" + sheet;
+  }
+  // clears the form field
+  function clearSheet() {
+    notepad.value = "";
+  }
+</script>

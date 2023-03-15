@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%=song.name%></title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <title>editing <%=song.title%></title>
+  </head>
+  <body>
     <div class="container">
-    <h3>editing <%=song.title%></h3>
-    <form action="/<%=song._id%>?_method=PUT" method="POST">
-        <textarea name="notation" rows="30" cols="100"><%=String(song.notation)%></textarea><br>
-    Artist: <input type="text" name="artist" value="<%=song.artist%>"><br/>
-    Song Title: <input type="text" name="title" value="<%=song.title%>"> <br/>
-    Tab Author: <input type="text" name="author" value="<%=song.author%>"> <br/>
-    Image URL: <input type="text" name="img" value="<%=song.img%>"> <br/>
-    <input type="submit" value="Update song">
-</form>
-</div>
-</body>
+      <h3>editing <%=song.title%></h3>
+      <form action="/<%=song._id%>?_method=PUT" method="POST">
+        <textarea id="notepad" name="notation" rows="30" cols="100">
+<%=song.notation%></textarea
+        ><br />
+        Artist:
+        <input type="text" name="artist" value="<%=song.artist%>" /><br />
+        Song Title: <input type="text" name="title" value="<%=song.title%>" />
+        <br />
+        Tab Author:
+        <input type="text" name="author" value="<%=song.author%>" /> <br />
+        Image URL: <input type="text" name="img" value="<%=song.img%>" /> <br />
+        <input type="submit" value="Update song" />
+      </form>
+      <button onclick="addSheet()">add tab block</button>
+      <button onclick="clearSheet()">clear notation</button>
+    </div>
+    <%-include('../public/scripts/editor.ejs')%>
+  </body>
 </html>
