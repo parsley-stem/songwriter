@@ -14,17 +14,21 @@
         <textarea id="notepad" name="notation" rows="30" cols="100">
 <%=song.notation%></textarea
         ><br />
-        Artist:
+        artist:
         <input type="text" name="artist" value="<%=song.artist%>" /><br />
-        Song Title: <input type="text" name="title" value="<%=song.title%>" />
+        song title: <input type="text" name="title" value="<%=song.title%>" />
         <br />
-        Tab Author:
+        tab author:
         <input type="text" name="author" value="<%=song.author%>" /> <br />
-        Image URL: <input type="text" name="img" value="<%=song.img%>" /> <br />
-        <input type="submit" value="Update song" />
+        image url: <input type="text" name="img" value="<%=song.img%>" /> <br />
+        <input type="submit" value="update song" />
       </form>
       <button onclick="addSheet()">add tab block</button>
       <button onclick="clearSheet()">clear notation</button>
+      <form action="/<%= song._id %>?_method=DELETE" method="POST">
+        <input type="submit" value="delete" />
+    </form>
+    <a href="/<%=song._id%>">discard changes and return</a>
     </div>
     <%-include('../public/scripts/editor.ejs')%>
   </body>

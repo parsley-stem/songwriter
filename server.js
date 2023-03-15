@@ -40,6 +40,12 @@ app.get("/new", (req, res) => {
 });
 
 // D
+app.delete('/:id', (req, res) => {
+  Songs.findByIdAndRemove(req.params.id, (err, deletedSong) => {
+      res.redirect('/')
+  })
+});
+
 // U
 app.put("/:id", (req, res) => {
   Songs.findByIdAndUpdate(
