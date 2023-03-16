@@ -8,10 +8,10 @@ const tabSchema = new mongoose.Schema({
   author: String,
   img: String,
   notation: {
-    type: String,
-    required: true,
+    type: String
   },
   comment: String,
+  request: Boolean
 });
 
 const Songs = mongoose.model("Songs", tabSchema);

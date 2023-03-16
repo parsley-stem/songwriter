@@ -26,6 +26,7 @@ db.on("connected", () => console.log("Mongo connected"));
 db.on("disconnected", () => console.log("Mongo disconnected"));
 
 // I
+// index of all songs
 app.get("/", (req, res) => {
   Songs.find({}, (err, allSongs) => {
     res.render("index.ejs", {
@@ -33,17 +34,30 @@ app.get("/", (req, res) => {
     });
   });
 });
+// index of transcription requests
+app.get("/requests", (req, res) => {
+  Songs.find({}, (err, allSongs) => {
+    res.render("requests.ejs", {
+      songs: allSongs,
+    });
+  });
+});
 
 // N
+// create new tablature
 app.get("/new", (req, res) => {
   res.render("new.ejs");
 });
+// request new tablature
+app.get("/new/request", (req, res) => {
+  res.render("newreq.ejs");
+});
 
 // D
-app.delete('/:id', (req, res) => {
+app.delete("/:id", (req, res) => {
   Songs.findByIdAndRemove(req.params.id, (err, deletedSong) => {
-      res.redirect('/')
-  })
+    res.redirect("/");
+  });
 });
 
 // U
@@ -60,6 +74,12 @@ app.put("/:id", (req, res) => {
 
 // C
 app.post("/", (req, res) => {
+  if (req.body.act === "submit request") {
+    req.body.request = true;
+  } else {
+    req.body.request = false;
+  }
+
   Songs.create(req.body, (err, createdSong) => {
     if (err) {
       console.log(err);

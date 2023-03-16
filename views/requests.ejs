@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <title>all requests</title>
+  </head>
+  <body>
+    <h1>requests</h1>
+    <% for (let i = 0; i < songs.length; i ++) { %> <% if (songs[i].request ===
+    true) { %>
+    <div id="song">
+      <ul>
+        <li><%=songs[i].artist%> - <%=songs[i].title%></li>
+        <form action="/<%= songs[i]._id %>?_method=DELETE" method="POST">
+        <input type="submit" value="delete" />
+    </form>
+        <textarea id="request-form-<%=i%>" style="height: 50px; width: 50px">
+<%=songs[i].comment%></textarea
+        >
+        <li>requested by <%=songs[i].author%></li>
+      </ul>
+    </div>
+    <% } %> <% } %>
+    <a href="/new/request">new request</a>
+    <script>
+      // make the request comments grow when the user's mouse enters them
+      // get the number of requests on the page
+      const allRequests = document.querySelectorAll("textarea");
+      // add listeners to every request
+      for (let i = 0; i < allRequests.length; i++) {
+        const textarea = allRequests[i];
+        textarea.addEventListener("focus", function () {
+          this.style.height = `${window.innerHeight / 6}px`;
+          this.style.width = `${window.innerWidth / 3}px`;
+        });
+        // resize when the field is deselected
+        textarea.addEventListener("blur", function () {
+          this.style.height = "50px";
+          this.style.width = "50px";
+        });
+      }
+    </script>
+  </body>
+</html>
