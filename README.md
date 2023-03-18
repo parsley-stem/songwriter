@@ -11,6 +11,7 @@ The "Songwriter" website is designed for guitar players who want to share their 
 * [Technologies Used](#technologiesused)
 * [Features](#features)
 * [Design](#design)
+* [User Stories](#userstories)
 * [Project Next Steps](#nextsteps)
 * [About the Author](#author)
 
@@ -30,6 +31,9 @@ Notation tool that helps to write guitar tablature with ease
 
 ## <a name="design"></a>Design
 * Design elements implemented using EJS partials and CSS3
+
+<a name="userstories"></a>User Stories
+guitar player, I want to find easy-to-follow tabs so that I can learn basic chords and progressions.
 
 <a name="nextsteps"></a>Project Next Steps
 * Allow users to create accounts
