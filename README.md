@@ -18,7 +18,7 @@ The "Songwriter" website is designed for guitar players who want to share their 
 * [Wireframe](#wireframe)
 * [About the Author](#author)
 
-<a name="technologiesused"></a>Technologies Used
+## <a name="technologiesused"></a>Technologies Used
 
 * JavaScript
 * EJS
@@ -29,7 +29,7 @@ The "Songwriter" website is designed for guitar players who want to share their 
 * Express.js
 * RESTful Routes
 
-<a name="features"></a>Features
+## <a name="features"></a>Features
 
 Users can run full C.R.U.D. operation on guitar tablature
 Notation tool that helps to write guitar tablature with ease
@@ -38,21 +38,21 @@ Notation tool that helps to write guitar tablature with ease
 
 * Design elements implemented using EJS partials and CSS3
 
-<a name="userstories"></a>User Stories
+## <a name="userstories"></a>User Stories
 
 - As a guitar player, I want to find easy-to-follow tabs so that I can learn basic chords and progressions.
 
-<a name="nextsteps"></a>Project Next Steps
+## <a name="nextsteps"></a>Project Next Steps
 
 * Allow users to create accounts
 * Allow users to privately create tabs
 * Allow users to comment on public tabs
 
-<a name="wireframe"></a>Wireframe
+## <a name="wireframe"></a>Wireframe
 
 ![image](https://user-images.githubusercontent.com/128225761/226109694-c0b87aef-8745-4ce6-8e44-a2905aaf0ddd.png)
 ![image](https://user-images.githubusercontent.com/128225761/226109697-bc42ff03-4592-42d1-9c39-c25cc04b013c.png)
 
-<a name="Author"></a>About the Author
+## <a name="Author"></a>About the Author
 
 I am a web developer and musician based in Los Angeles. I have always been excited by the way technology can be used to solve real-world problems and improve people's lives. At the same time, I have a deep passion for music - particularly the guitar - and have been playing and studying the instrument for many years. The Songwriter app is a reflection of this passion for music and technology.
