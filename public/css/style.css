@@ -18,3 +18,45 @@ h1 {
     border-bottom: 1px solid #43404075;
     margin-top: 0
 }
+
+#songs-container {
+    border: 1px solid #43404075;
+    display: flex;
+    flex-wrap: wrap;
+    height: calc(75vh);
+    width: calc(70vw);
+    overflow:auto
+  }
+  
+#song {
+    width: 18%;
+    padding: 5px;
+    text-align: center;;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px 0;
+  }
+
+  img {
+    border: 1px inset #43404075;
+    border-radius: 5%;
+  }
+
+  #song-name {
+    text-decoration-line:underline;
+    text-decoration-style:solid;
+    text-decoration-color: #43404075;;
+  }
+
+
+  img {
+    transition: transform 0.07s ease-in-out;
+}
+
+img:hover {
+    transform: scale(.99);
+    filter: hue-rotate(180deg);
+}

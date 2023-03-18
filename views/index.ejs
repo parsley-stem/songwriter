@@ -9,19 +9,20 @@
   </head>
   <body>
     <h1>songwriter - Chords, Lyrics, Notation, Tabber</h1>
-    <% for (let i = 0; i < songs.length; i ++) { %>
-        <% if (songs[i].request === false) { %>
-            <div id="song">
-                <img src="<%=songs[i].img%>" width="100px" />
-                <ul>
-                  <a href="/<%=songs[i]._id%>">
-                    <li><%=songs[i].artist%> - <%=songs[i].title%></li>
-                  </a>
-                  <li>tabbed by <%=songs[i].author%></li>
-                </ul>
-              </div>
-              <% } %>
-    <% } %>
+    <div id="songs-container">
+      <% for (let i = 0; i < songs.length; i ++) { %> <% if (songs[i].request
+      === false) { %>
+      <div id="song">
+        <a href="/<%=songs[i]._id%>">
+          <img src="<%=songs[i].img%>" width="90px" height="90px" />
+        </a>
+        <ul>
+          <li id="song-name"><%=songs[i].artist%> - <%=songs[i].title%></li>
+          <li>tabbed by <%=songs[i].author%></li>
+        </ul>
+      </div>
+      <% } %> <% } %>
+    </div>
     <a href="/new">contribute my own tablature</a>
     <a href="/requests">requests</a>
   </body>

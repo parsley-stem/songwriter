@@ -14,17 +14,17 @@
     <div id="song">
       <ul>
         <li><%=songs[i].artist%> - <%=songs[i].title%></li>
-        <form action="/<%= songs[i]._id %>?_method=DELETE" method="POST">
+        <textarea id="request-form-<%=i%>" style="height: 50px; width: 50px">
+<%=songs[i].comment%></textarea>
+<form action="/<%= songs[i]._id %>?_method=DELETE" method="POST">
         <input type="submit" value="delete" />
     </form>
-        <textarea id="request-form-<%=i%>" style="height: 50px; width: 50px">
-<%=songs[i].comment%></textarea
-        >
         <li>requested by <%=songs[i].author%></li>
       </ul>
     </div>
     <% } %> <% } %>
     <a href="/new/request">new request</a>
+    <a href="/">return</a>
     <script>
       // make the request comments grow when the user's mouse enters them
       // get the number of requests on the page
